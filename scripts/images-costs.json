@@ -1,0 +1,31 @@
+{
+  "model": "gemini-2.5-flash-image",
+  "budgetUsd": 0.4,
+  "entries": [
+    {
+      "file": "banner-3d",
+      "at": "2026-10-31T09:52:55.356Z",
+      "costUsd": 0.03873
+    },
+    {
+      "file": "hero-lab",
+      "at": "2026-10-31T09:53:04.721Z",
+      "costUsd": 0.03873
+    },
+    {
+      "file": "empty-lab",
+      "at": "2026-10-31T09:53:10.736Z",
+      "costUsd": 0.03872
+    },
+    {
+      "file": "trophy",
+      "at": "2026-10-31T09:53:22.873Z",
+      "costUsd": 0.03873
+    },
+    {
+      "file": "capacitor",
+      "at": "2026-10-31T09:53:29.782Z",
+      "costUsd": 0.03872
+    }
+  ]
+}

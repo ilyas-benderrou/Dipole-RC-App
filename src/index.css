@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+/*
+ * Charte RC-Lab (section 15) : glassmorphism doux.
+ * Teal #0F7C7C (principal), texte #16324F, u_C bleu #1F6FD1, i orange #E67E22, diélectrique jaune #F4D35E,
+ * vert pour la réussite, orange doux (jamais rouge agressif) pour l'erreur.
+ */
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+
+  --color-teal-50: #ebf7f6;
+  --color-teal-100: #d2eeec;
+  --color-teal-200: #a6dcd9;
+  --color-teal-300: #6fc3bf;
+  --color-teal-400: #36a5a2;
+  --color-teal-500: #158f8e;
+  --color-teal-600: #0f7c7c;
+  --color-teal-700: #0c6566;
+  --color-teal-800: #0b5051;
+  --color-teal-900: #093f40;
+
+  --color-ink: #16324f;
+  --color-ink-soft: #3d5873;
+  --color-muted: #6c8299;
+
+  --color-uc: #1f6fd1;
+  --color-uc-soft: #dce9fa;
+  --color-cur: #e67e22;
+  --color-cur-soft: #fcebdb;
+  --color-diel: #f4d35e;
+  --color-ur: #8b5cf6;
+  --color-q: #0f7c7c;
+  --color-energy: #d9468f;
+
+  --color-ok-50: #e9f8f0;
+  --color-ok-100: #ccefdc;
+  --color-ok-500: #1fa971;
+  --color-ok-700: #12774f;
+  --color-warn-50: #fff4e8;
+  --color-warn-100: #fde3c8;
+  --color-warn-500: #ef9a4a;
+  --color-warn-700: #b5651d;
+
+  --radius-glass: 20px;
+
+  --animate-enter: enter 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade: fade 0.3s ease-out both;
+  --animate-pop: pop 0.45s ease-out both;
+  --animate-pulse-soft: pulse-soft 1.8s ease-in-out infinite;
+
+  @keyframes enter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    70% { transform: scale(1.06); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(15, 124, 124, 0.45); }
+    50% { box-shadow: 0 0 0 10px rgba(15, 124, 124, 0); }
+  }
+}
+
+html,
+body {
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+  min-height: 100%;
+}
+
+body {
+  background-color: #cfe3e0;
+  background-image:
+    radial-gradient(ellipse 55% 45% at 92% 2%, rgba(176, 164, 232, 0.85), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(183, 228, 212, 0.95), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 60% 55%, rgba(205, 225, 240, 0.7), transparent 70%),
+    linear-gradient(140deg, #d3e9e3 0%, #c7dde0 45%, #c6d3e6 100%);
+  background-attachment: fixed;
+  font-feature-settings: "cv11", "ss01";
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-teal-400);
+  outline-offset: 2px;
+}
+
+/* Carte translucide (verre dépoli). */
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-glass);
+  box-shadow:
+    0 24px 48px -24px rgba(22, 50, 79, 0.28),
+    0 2px 8px rgba(22, 50, 79, 0.05);
+}
+.glass-strong {
+  background: rgba(255, 255, 255, 0.78);
+}
+.glass-inset {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 14px;
+}
+
+/* Sur téléphone : moins de flou, plus d'opacité (lisibilité). */
+@media (max-width: 640px) {
+  .glass {
+    background: rgba(255, 255, 255, 0.82);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Petites étiquettes en majuscules espacées (« NIVEAU », « τ MESURÉ »). */
+.label-caps {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Pastilles carrées arrondies en dégradé (icônes). */
+.pastille {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 8px 18px -8px rgba(22, 50, 79, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.pastille-violet { background: linear-gradient(140deg, #b8a6ff, #7c63e6); }
+.pastille-rose { background: linear-gradient(140deg, #ffa3c9, #e2558f); }
+.pastille-orange { background: linear-gradient(140deg, #ffc98a, #f08a3c); }
+.pastille-teal { background: linear-gradient(140deg, #5fd0c9, #0f7c7c); }
+.pastille-blue { background: linear-gradient(140deg, #8fc0ff, #1f6fd1); }
+
+/* Bannière teal en dégradé. */
+.banner-teal {
+  background:
+    radial-gradient(ellipse 60% 80% at 85% 30%, rgba(95, 208, 201, 0.55), transparent 70%),
+    linear-gradient(120deg, #0d6f70 0%, #0f7c7c 45%, #1a9a97 100%);
+}
+
+/* Entrée des pages et cartes en cascade. */
+.page-enter { animation: var(--animate-enter); }
+.cascade > * { animation: var(--animate-enter); }
+.cascade > *:nth-child(2) { animation-delay: 40ms; }
+.cascade > *:nth-child(3) { animation-delay: 80ms; }
+.cascade > *:nth-child(4) { animation-delay: 120ms; }
+.cascade > *:nth-child(5) { animation-delay: 160ms; }
+.cascade > *:nth-child(6) { animation-delay: 200ms; }
+.cascade > *:nth-child(7) { animation-delay: 240ms; }
+.cascade > *:nth-child(n + 8) { animation-delay: 280ms; }
+
+/* Barres de progression qui se remplissent. */
+.bar-fill {
+  transition: width 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.bar-grow {
+  transform-origin: left center;
+  animation: grow-x 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.pulse-step { animation: var(--animate-pulse-soft); }
+
+.pop-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: var(--animate-pop);
+}
+
+/* Barres de défilement discrètes. */
+.thin-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: rgba(22, 50, 79, 0.18); border-radius: 6px; }
+
+/* Champs de saisie. */
+.field {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(22, 50, 79, 0.14);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.55rem 0.8rem;
+  color: var(--color-ink);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--color-teal-400);
+  box-shadow: 0 0 0 3px rgba(15, 124, 124, 0.18);
+}
+
+input[type="range"].range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(22, 50, 79, 0.12);
+}
+input[type="range"].range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-teal-600);
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(22, 50, 79, 0.3);
+  cursor: pointer;
+}
+input[type="range"].range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-teal-600);
+  border: 3px solid white;
+  cursor: pointer;
+}
+
+/* Tuteur Capi (section 15 bis). */
+@keyframes capi-breathe { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-1.5px) scaleY(1.015); } }
+@keyframes capi-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes capi-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-35deg); } 75% { transform: rotate(15deg); } }
+@keyframes capi-jump { 0%, 100% { transform: translateY(0); } 35% { transform: translateY(-14px); } 60% { transform: translateY(0); } 75% { transform: translateY(-5px); } }
+@keyframes capi-lean { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-7deg); } }
+@keyframes capi-spark { 0%, 100% { opacity: 0.4; transform: scale(0.85) rotate(0deg); } 50% { opacity: 1; transform: scale(1.15) rotate(20deg); } }
+@keyframes capi-dots { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+@keyframes confetti-fall { 0% { transform: translateY(-10px) rotate(0deg); opacity: 1; } 100% { transform: translateY(70px) rotate(300deg); opacity: 0; } }
+.capi-body { transform-box: fill-box; transform-origin: 50% 100%; animation: capi-breathe 3.2s ease-in-out infinite; }
+.capi-eye { transform-box: fill-box; transform-origin: center; animation: capi-blink 4.5s infinite; }
+.capi-wave { transform-box: fill-box; transform-origin: 90% 90%; animation: capi-wave 0.9s ease-in-out 3; }
+.capi-jump { animation: capi-jump 0.9s ease-out 2; }
+.capi-lean { transform-box: fill-box; transform-origin: 50% 100%; animation: capi-lean 2.2s ease-in-out infinite; }
+.capi-spark { transform-box: fill-box; transform-origin: center; animation: capi-spark 1.1s ease-in-out infinite; }
+.capi-dot { animation: capi-dots 1.2s ease-in-out infinite; }
+.capi-dot:nth-child(2) { animation-delay: 0.2s; }
+.capi-dot:nth-child(3) { animation-delay: 0.4s; }
+.confetti { animation: confetti-fall 1.4s ease-in forwards; }
+
+/* Impression (tests papier, page d'analyse pour le mémoire). */
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body { background: white !important; }
+  .no-print { display: none !important; }
+  .glass, .glass-inset {
+    background: white !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: 1px solid #d6dde4 !important;
+  }
+  .print-break { break-before: page; }
+  .print-avoid { break-inside: avoid; }
+  main { padding: 0 !important; margin: 0 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

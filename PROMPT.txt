@@ -1,0 +1,1 @@
+Lis APP_SPEC.md en entier et construis toute l'application (phases 1 à 8) en autonomie complète, sans me poser de questions ni t'arrêter. Résumé et commandes de lancement à la fin seulement.
